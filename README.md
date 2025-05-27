@@ -44,5 +44,3 @@ O dashboard foi construído com **Plotly Dash** e permite:
 - Bootstrap (via Dash Bootstrap Components)
 
 ---
-
-## 📁 Estrutura de Arquivos
