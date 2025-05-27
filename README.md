@@ -1,28 +1,48 @@
-# 🎵 Gêneros Musicais por Nível Socioeconômico
+# 🎧 Dashboard Interativo: Análise de Faixas Musicais com Plotly e Dash
 
-Este projeto é voltado à disciplina de **Visualização de Dados**, com o objetivo de investigar se há uma relação entre o gosto musical das pessoas e seus níveis socioeconômicos (como renda, escolaridade e faixa etária).
+Projeto desenvolvido por **João Vitor Costa Rolim**, aluno do **5º semestre** do curso de **Análise e Desenvolvimento de Sistemas** da **Unichristus**, como parte da disciplina de **Visualização de Dados**.
 
-## 🎯 Objetivo
+## 📌 Objetivo
 
-Analisar como diferentes perfis socioeconômicos influenciam a preferência por gêneros musicais. Utilizando visualizações, buscamos identificar padrões e possíveis correlações que ajudem a entender a diversidade musical dentro do contexto social brasileiro.
-
-## 📊 Visualizações
-
-Algumas das visualizações incluídas no projeto:
-
-- Gráfico de barras: distribuição dos gêneros musicais por renda
-- Gráfico de pizza: gêneros musicais por nível de escolaridade
-- Gráfico de dispersão: relação entre idade, renda e gênero preferido
-
-## 🛠️ Ferramentas Utilizadas
-
-- Python (Pandas, Dash, Plotly)
-- Google Sheets
-
-## 🔍 Conclusão (em desenvolvimento)
-
-As conclusões serão construídas com base na análise dos dados e nas visualizações geradas. A ideia é gerar insights sobre como o gosto musical pode refletir aspectos sociais da população.
+O objetivo deste projeto é fornecer **insights visuais interativos** a partir de dados de faixas musicais do Spotify. A ideia central é auxiliar **produtores musicais** a identificarem padrões de sucesso e tomarem decisões baseadas em dados, com base em atributos como **popularidade, duração, BPM e compasso**.
 
 ---
 
-*Projeto acadêmico - Visualização de Dados - 2025*
+## 📊 Funcionalidades do Dashboard
+
+O dashboard foi construído com **Plotly Dash** e permite:
+
+### 🎼 Seleção de Gêneros
+
+- O usuário pode selecionar **um ou mais gêneros musicais** para análise.
+
+### 📈 Análises Interativas
+
+1. **Popularidade por Gênero**  
+   Gráfico de barras que exibe a **popularidade média** de cada gênero selecionado.
+
+2. **Duração da Faixa vs Popularidade**  
+   Gráfico de dispersão (scatter plot) mostrando como a duração das faixas (em minutos) se relaciona com a popularidade. Permite descobrir se faixas curtas ou longas tendem a ter mais sucesso.
+
+3. **Distribuição de BPM (Tempo)**  
+   Histograma interativo que revela o intervalo de **batidas por minuto (BPM)** mais comum entre as faixas populares.
+
+4. **Assinatura de Compasso Mais Popular**  
+   Gráfico de barras exibindo quais assinaturas de compasso (como 4/4, 3/4, etc.) são mais frequentes entre faixas populares.
+
+5. **Recomendações Baseadas em Padrões Populares**  
+   Exibição de uma tabela com faixas que **melhor representam os padrões de popularidade** detectados (com base em BPM, duração e compasso).
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- Python 3.12
+- Dash
+- Plotly Express
+- Pandas
+- Bootstrap (via Dash Bootstrap Components)
+
+---
+
+## 📁 Estrutura de Arquivos
