@@ -1,0 +1,55 @@
+/* Fundo musical */
+body {
+  background-image: url("fundo-musical.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container principal com fundo translúcido */
+._dash-container,
+.container,
+.dash-bootstrap {
+  background-color: rgba(0, 0, 0, 0.75); /* Fundo escuro semitransparente */
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Títulos com sombra para melhor contraste */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #ffffff;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Texto e listas */
+label,
+li,
+.text-light {
+  color: #f0f0f0 !important;
+}
+
+/* Dropdown */
+.Select-control,
+.Select-menu-outer,
+.Select-placeholder {
+  background-color: #1e1e2f !important;
+  color: white !important;
+}
+
+/* Separador visual */
+.divider {
+  border-top: 1px solid #aaa;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
