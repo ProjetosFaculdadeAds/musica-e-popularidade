@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BeatMatch Insights</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+
+    <style>
+      body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: "Inter", sans-serif;
+        scroll-behavior: smooth;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: "Orbitron", sans-serif;
+      }
+      section {
+        padding: 60px 0;
+      }
+      .btn-neon {
+        background-color: #00ffc3;
+        color: #000;
+        border: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+      .btn-neon:hover {
+        background-color: #00e6b0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 255, 195, 0.3);
+      }
+      iframe {
+        width: 100%;
+        height: 600px;
+        border: none;
+        margin-top: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      }
+      .generos-selecionados {
+        background-color: #1e1e1e;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+        border-left: 4px solid #00ffc3;
+      }
+      .card-musica {
+        transition: all 0.3s ease;
+        border: 1px solid #333;
+        background-color: #1a1a1a;
+      }
+      .card-musica:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 255, 195, 0.2);
+        border-color: #00ffc3;
+      }
+      .form-select {
+        background-color: #1e1e1e;
+        color: white;
+        border: 1px solid #333;
+      }
+      .form-select:focus {
+        border-color: #00ffc3;
+        box-shadow: 0 0 0 0.25rem rgba(0, 255, 195, 0.25);
+      }
+      .alert-custom {
+        background-color: #1e1e1e;
+        border-left: 4px solid #00ffc3;
+      }
+      .badge-genre {
+        background-color: #00ffc3;
+        color: #121212;
+        margin-right: 5px;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Seção 1: Hero -->
+    <section class="text-center container" id="hero">
+      <h1 class="display-4">Descubra os Beats Perfeitos</h1>
+      <p class="lead mt-3">
+        Economize horas de pesquisa e encontre as faixas ideais para seus
+        mashups e produções.
+      </p>
+      <a href="#seletor" class="btn btn-neon btn-lg mt-4">Explorar Agora</a>
+    </section>
+
+    <!-- Seção 2: O Problema -->
+    <section class="container" id="problema">
+      <h2>🎧 O Desafio de Todo Produtor</h2>
+      <p class="mt-3">
+        Encontrar faixas com BPMs compatíveis, tonalidades semelhantes e
+        estruturas harmônicas coesas é um processo demorado e manual. DJs e
+        produtores gastam horas tentando entender as características das músicas
+        populares — tempo que poderia ser dedicado à criação.
+      </p>
+    </section>
+
+    <!-- Seção 3: A Solução -->
+    <section class="container" id="seletor">
+      <h2>🚀 A Solução: BeatMatch Insights</h2>
+      <p class="mt-3">
+        Basta selecionar um ou mais gêneros musicais para visualizar um raio-x
+        completo das faixas mais populares.
+      </p>
+
+      <form method="POST" action="/">
+        <div class="mb-3">
+          <label for="genero" class="form-label">Escolha os gêneros:</label>
+          <select
+            id="genero"
+            name="genero"
+            class="form-select"
+            multiple
+            required
+            size="5"
+          >
+            {% for genero in generos_disponiveis %}
+            <option
+              value="{{ genero }}"
+              {%
+              if
+              genero
+              in
+              generos_selecionados
+              %}selected{%
+              endif
+              %}
+            >
+              {{ genero }}
+            </option>
+            {% endfor %}
+          </select>
+          <small class="form-text text-muted">
+            Use CTRL (Windows) ou CMD (Mac) para selecionar múltiplos gêneros.
+          </small>
+        </div>
+        <button type="submit" class="btn btn-neon">Gerar Análise</button>
+      </form>
+
+      {% if generos_selecionados %}
+      <div class="generos-selecionados mt-4">
+        <h5>Gêneros selecionados:</h5>
+        <div class="mt-2">
+          {% for genero in generos_selecionados %}
+          <span class="badge badge-genre rounded-pill">{{ genero }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </section>
+
+    <!-- Seção 4: Dashboards -->
+    <section class="container" id="analise">
+      <h2>📊 Análises Visuais</h2>
+      <p class="mt-3">
+        Visualize instantaneamente os padrões musicais mais relevantes para suas
+        mixagens.
+      </p>
+
+      {% if generos_selecionados %}
+      <div class="dashboard-container">
+        <iframe
+          src="/dash/?genero={% for g in generos_selecionados %}{{ g }}{% if not loop.last %},{% endif %}{% endfor %}"
+          title="Dashboard de Análise Musical"
+        ></iframe>
+      </div>
+      {% else %}
+      <div class="alert alert-dark alert-custom text-center">
+        Selecione os gêneros musicais acima para visualizar as análises.
+      </div>
+      {% endif %}
+    </section>
+
+    <!-- Seção 5: Lista de Ouro -->
+    <section class="container" id="lista">
+      <h2>🎶 A Lista de Ouro</h2>
+      <p class="mt-3">
+        Essas são as faixas mais representativas com base nas análises.
+        Perfeitas para inspiração ou mashups!
+      </p>
+
+      <div class="row">
+        {% if musicas %} {% for m in musicas %}
+        <div class="col-md-6 mb-3">
+          <div class="card card-musica h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ m.track_name }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ m.artists }}</h6>
+              <div class="card-text mt-3">
+                <p>
+                  <strong>Gênero:</strong>
+                  <span class="badge badge-genre rounded-pill"
+                    >{{ m.track_genre }}</span
+                  >
+                </p>
+                <p><strong>Popularidade:</strong> {{ m.popularity }}/100</p>
+                <p>
+                  <strong>Duração:</strong> {{ "%.2f"|format(m.duration_min) }}
+                  minutos
+                </p>
+                <p><strong>BPM:</strong> {{ "%.0f"|format(m.tempo) }}</p>
+                <p><strong>Compasso:</strong> {{ m.time_signature }}/4</p>
+                <p><strong>Tom:</strong> {{ m.key_name }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% else %}
+        <div class="col-12">
+          <div class="alert alert-dark alert-custom text-center">
+            Nenhuma faixa exibida ainda. Selecione um gênero acima para começar.
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5 border-top border-secondary">
+      <p class="mb-0 text-muted">
+        Desenvolvido para DJs e produtores. BeatMatch Insights © 2025
+      </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Scroll suave para âncoras
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+
+      // Atualizar iframe quando os gêneros mudam
+      document.querySelector("form").addEventListener("submit", function () {
+        setTimeout(() => {
+          const iframe = document.querySelector("iframe");
+          if (iframe) {
+            iframe.src = iframe.src; // Forçar reload
+          }
+        }, 500);
+      });
+    </script>
+  </body>
+</html>
